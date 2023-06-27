@@ -34,8 +34,8 @@ import os
 
 #READ IN THE HIGH-RESOLUTION SPECTRA AND WAVELENGTHS
 microns=False
-input_file='C:\\Users\\krist\\Documents\\Python_Scripts\\MCZ_convolve\\data2convolve\\2022_02_09_Louise_Dunites_Andesites_ReconGeom.csv'
-os.chdir('C:\\Users\\krist\\Documents\\Python_Scripts\\MCZ_convolve\\hires_to_MCZ')
+os.chdir('C:\\Users\\krist\\Documents\\Python_scripts\\MCZ_convolve\\hires_to_MCZ')
+input_file='io\\Mafic_JSC_Mixtures.csv'
 input_data=np.genfromtxt(input_file, dtype=float, delimiter=',',skip_header=5, unpack=True) #makes .csv readable and 'unpack=True flips column and row
 spectrum_wav=np.array(input_data[0]) #makes first row
 
