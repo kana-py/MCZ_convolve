@@ -35,7 +35,7 @@ import os
 #READ IN THE HIGH-RESOLUTION SPECTRA AND WAVELENGTHS
 microns=False
 os.chdir('C:\\Users\\krist\\Documents\\Python_scripts\\MCZ_convolve\\hires_to_MCZ')
-input_file='io\\Mafic_JSC_Mixtures.csv'
+input_file='io\\Pomix1001_OriginalDataFromVISOR_for_PythonScriptConvolutionTest.csv'
 input_data=np.genfromtxt(input_file, dtype=float, delimiter=',',skip_header=5, unpack=True) #makes .csv readable and 'unpack=True flips column and row
 spectrum_wav=np.array(input_data[0]) #makes first row
 
@@ -71,7 +71,7 @@ for m in range(1,n):
     #IF zero[0] GT 0 THEN spectrum(where(spectrum LT 0.))=0.
     
     #define wavelength array (300-1100 nm with 5nm steps) to use with Mastcam filter data
-    wvl=np.arange(350,1050,5)#make_array(161,/index)*5.+300.
+    wvl=np.arange(351,1050,5)#make_array(161,/index)*5.+300.
     
     #restore merged / normalized Mastcam filter data
     [bayerL0B_wvl, bayerL0B]=np.genfromtxt('mastcamz/normalized_MCZ_L0B.txt',unpack=True)
@@ -251,7 +251,7 @@ for m in range(1,n):
     mastcamz_spect=[filterL6,filter_blue,filterL5,filter_green,filterL4,filter_red,filterL3,filterL2,filter1,filterR2,filterR3,filterR4,filterR5,filterR6]
     
     #define mastcam effective wavelengths 
-    mastcamz_wav = [440.,480.,528.,544.,605.,630.5,677.,754.,800.,866.,910.,939.,978.,1022.]
+    mastcamz_wav = [442.,480.,528.,544.,605.,630.5,677.,754.,800.,866.,910.,939.,978.,1022.]
     
     #sort the mastcamz arrays in ascending order
     mastcamz=[x for _, x in sorted(zip(mastcamz_wav,mastcamz_spect), key=lambda pair: pair[0])]
