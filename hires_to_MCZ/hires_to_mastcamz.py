@@ -10,7 +10,8 @@
 # 11/15/2011 - adapted to the new Mastcam passbands provided by Jim Bell
 # 3/15/2013 - will now output convolved RGB Bayer Filter reflectances
 # 6/18/2019 - translated to Python from IDL - Kathleen Hoza
-# 10/3/2019 - modified for mastcam-z calibration measurements (no solar input)
+# 10/3/2019 - modified for mastcam-z calibration measurements (no solar input) - Kristiana Lapo
+# 12/4/2025 - updated scipy.integrate.trapz (deprecated) to scipy.integrate.trapezoid
 # INPUTS: input_file (the ASCII file containing the spectra to convolve.
 #                     The first column must be wavelength in nm, and
 #                     the following columns must contain reflectance)
@@ -34,8 +35,8 @@ import os
 
 #READ IN THE HIGH-RESOLUTION SPECTRA AND WAVELENGTHS
 microns=False
-os.chdir('C:\\Users\\krist\\Documents\\Python_scripts\\MCZ_convolve\\hires_to_MCZ')
-input_file='io\\Pomix1001_OriginalDataFromVISOR_for_PythonScriptConvolutionTest.csv'
+os.chdir('C:/Users/lapok/Desktop/tanager_file_code/hires_to_MCZ')
+input_file='io/2025_12_03_Kristiana_siderite_powders_probe.csv'
 input_data=np.genfromtxt(input_file, dtype=float, delimiter=',',skip_header=5, unpack=True) #makes .csv readable and 'unpack=True flips column and row
 spectrum_wav=np.array(input_data[0]) #makes first row
 
@@ -155,25 +156,25 @@ for m in range(1,n):
     
     
     #Integrate over each filter
-    filterL0_red_int=integrate.trapz(filterL0_red,wvl)
-    filterL0_green_int=integrate.trapz(filterL0_green,wvl)
-    filterL0_blue_int=integrate.trapz(filterL0_blue,wvl)
-    filterL1_int=integrate.trapz(filterL1,wvl)
-    filterL2_int=integrate.trapz(filterL2,wvl)
-    filterL3_int=integrate.trapz(filterL3,wvl)
-    filterL4_int=integrate.trapz(filterL4,wvl)
-    filterL5_int=integrate.trapz(filterL5,wvl)
-    filterL6_int=integrate.trapz(filterL6,wvl)
+    filterL0_red_int=integrate.trapezoid(filterL0_red,wvl)
+    filterL0_green_int=integrate.trapezoid(filterL0_green,wvl)
+    filterL0_blue_int=integrate.trapezoid(filterL0_blue,wvl)
+    filterL1_int=integrate.trapezoid(filterL1,wvl)
+    filterL2_int=integrate.trapezoid(filterL2,wvl)
+    filterL3_int=integrate.trapezoid(filterL3,wvl)
+    filterL4_int=integrate.trapezoid(filterL4,wvl)
+    filterL5_int=integrate.trapezoid(filterL5,wvl)
+    filterL6_int=integrate.trapezoid(filterL6,wvl)
     
-    filterR0_red_int=integrate.trapz(filterR0_red,wvl)
-    filterR0_green_int=integrate.trapz(filterR0_green,wvl)
-    filterR0_blue_int=integrate.trapz(filterR0_blue,wvl)
-    filterR1_int=integrate.trapz(filterR1,wvl)
-    filterR2_int=integrate.trapz(filterR2,wvl)
-    filterR3_int=integrate.trapz(filterR3,wvl)
-    filterR4_int=integrate.trapz(filterR4,wvl)
-    filterR5_int=integrate.trapz(filterR5,wvl)
-    filterR6_int=integrate.trapz(filterR6,wvl)
+    filterR0_red_int=integrate.trapezoid(filterR0_red,wvl)
+    filterR0_green_int=integrate.trapezoid(filterR0_green,wvl)
+    filterR0_blue_int=integrate.trapezoid(filterR0_blue,wvl)
+    filterR1_int=integrate.trapezoid(filterR1,wvl)
+    filterR2_int=integrate.trapezoid(filterR2,wvl)
+    filterR3_int=integrate.trapezoid(filterR3,wvl)
+    filterR4_int=integrate.trapezoid(filterR4,wvl)
+    filterR5_int=integrate.trapezoid(filterR5,wvl)
+    filterR6_int=integrate.trapezoid(filterR6,wvl)
     
     
     #normalize each filter so that the integral is 1
@@ -204,42 +205,42 @@ for m in range(1,n):
     
     
     #multiply high-res spectrum by each filter, integrate,(and divide out solar spectrum)
-    filterL0_red=integrate.trapz(filterL0_red*new_spec_rad, wvl)#/integrate.trapz(filterL0_red*solar_interp,wvl)
+    filterL0_red=integrate.trapezoid(filterL0_red*new_spec_rad, wvl)#/integrate.trapezoid(filterL0_red*solar_interp,wvl)
 
-    filterL0_green=integrate.trapz(filterL0_green*new_spec_rad, wvl)#/integrate.trapz(filter0_green*solar_interp,wvl)
+    filterL0_green=integrate.trapezoid(filterL0_green*new_spec_rad, wvl)#/integrate.trapezoid(filter0_green*solar_interp,wvl)
            
-    filterL0_blue=integrate.trapz(filterL0_blue*new_spec_rad, wvl)#/integrate.trapz(filter0_blue*solar_interp,wvl)
+    filterL0_blue=integrate.trapezoid(filterL0_blue*new_spec_rad, wvl)#/integrate.trapezoid(filter0_blue*solar_interp,wvl)
 
-    filterL1=integrate.trapz(filterL1*new_spec_rad, wvl)#/integrate.trapz(filter1_525nm*solar_interp,wvl)
+    filterL1=integrate.trapezoid(filterL1*new_spec_rad, wvl)#/integrate.trapezoid(filter1_525nm*solar_interp,wvl)
 
-    filterL2=integrate.trapz(filterL2*new_spec_rad, wvl)#/integrate.trapz(filter2_440nm*solar_interp,wvl)
+    filterL2=integrate.trapezoid(filterL2*new_spec_rad, wvl)#/integrate.trapezoid(filter2_440nm*solar_interp,wvl)
 
-    filterL3=integrate.trapz(filterL3*new_spec_rad, wvl)#/integrate.trapz(filter3_750nm*solar_interp,wvl)
+    filterL3=integrate.trapezoid(filterL3*new_spec_rad, wvl)#/integrate.trapezoid(filter3_750nm*solar_interp,wvl)
 
-    filterL4=integrate.trapz(filterL4*new_spec_rad, wvl)#/integrate.trapz(filter4_905nm*solar_interp,wvl)
+    filterL4=integrate.trapezoid(filterL4*new_spec_rad, wvl)#/integrate.trapezoid(filter4_905nm*solar_interp,wvl)
 
-    filterL5=integrate.trapz(filterL5*new_spec_rad, wvl)#/integrate.trapz(filter5_865nm*solar_interp,wvl)
+    filterL5=integrate.trapezoid(filterL5*new_spec_rad, wvl)#/integrate.trapezoid(filter5_865nm*solar_interp,wvl)
 
-    filterL6=integrate.trapz(filterL6*new_spec_rad, wvl)#/integrate.trapz(filter6_1035nm*solar_interp,wvl)
+    filterL6=integrate.trapezoid(filterL6*new_spec_rad, wvl)#/integrate.trapezoid(filter6_1035nm*solar_interp,wvl)
 
 
-    filterR0_red=integrate.trapz(filterR0_red*new_spec_rad, wvl)#/integrate.trapz(filterL0_red*solar_interp,wvl)
+    filterR0_red=integrate.trapezoid(filterR0_red*new_spec_rad, wvl)#/integrate.trapezoid(filterL0_red*solar_interp,wvl)
 
-    filterR0_green=integrate.trapz(filterR0_green*new_spec_rad, wvl)#/integrate.trapz(filter0_green*solar_interp,wvl)
+    filterR0_green=integrate.trapezoid(filterR0_green*new_spec_rad, wvl)#/integrate.trapezoid(filter0_green*solar_interp,wvl)
            
-    filterR0_blue=integrate.trapz(filterR0_blue*new_spec_rad, wvl)#/integrate.trapz(filter0_blue*solar_interp,wvl)
+    filterR0_blue=integrate.trapezoid(filterR0_blue*new_spec_rad, wvl)#/integrate.trapezoid(filter0_blue*solar_interp,wvl)
 
-    filterR1=integrate.trapz(filterR1*new_spec_rad, wvl)#/integrate.trapz(filter1_525nm*solar_interp,wvl)
+    filterR1=integrate.trapezoid(filterR1*new_spec_rad, wvl)#/integrate.trapezoid(filter1_525nm*solar_interp,wvl)
 
-    filterR2=integrate.trapz(filterR2*new_spec_rad, wvl)#/integrate.trapz(filter2_440nm*solar_interp,wvl)
+    filterR2=integrate.trapezoid(filterR2*new_spec_rad, wvl)#/integrate.trapezoid(filter2_440nm*solar_interp,wvl)
 
-    filterR3=integrate.trapz(filterR3*new_spec_rad, wvl)#/integrate.trapz(filter3_750nm*solar_interp,wvl)
+    filterR3=integrate.trapezoid(filterR3*new_spec_rad, wvl)#/integrate.trapezoid(filter3_750nm*solar_interp,wvl)
 
-    filterR4=integrate.trapz(filterR4*new_spec_rad, wvl)#/integrate.trapz(filter4_905nm*solar_interp,wvl)
+    filterR4=integrate.trapezoid(filterR4*new_spec_rad, wvl)#/integrate.trapezoid(filter4_905nm*solar_interp,wvl)
 
-    filterR5=integrate.trapz(filterR5*new_spec_rad, wvl)#/integrate.trapz(filter5_865nm*solar_interp,wvl)
+    filterR5=integrate.trapezoid(filterR5*new_spec_rad, wvl)#/integrate.trapezoid(filter5_865nm*solar_interp,wvl)
 
-    filterR6=integrate.trapz(filterR6*new_spec_rad, wvl)#/integrate.trapz(filter6_1035nm*solar_interp,wvl)
+    filterR6=integrate.trapezoid(filterR6*new_spec_rad, wvl)#/integrate.trapezoid(filter6_1035nm*solar_interp,wvl)
 
     #average left and right RGB filters 
     filter_red=(filterL0_red + filterR0_red)/2
